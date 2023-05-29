@@ -1,8 +1,9 @@
 import React from 'react';
-import { SBTabi } from './SBTABI';
+import { SBTabi } from '../ABIs/SBTABI';
 import GetContract from '../hooks/GetContract';
 import { ethers } from 'ethers';
-import LoanVaultABI from '../ABIs/LoanVaultABI.json'
+import LoanVaultDetails from '../ABIs/LoanVaultABI.js'
+import MyNFTDetails from '../ABIs/MyNFT.js';
 import { useState } from 'react';
 import { ImageUpload } from 'react-ipfs-uploader'
 import GetAccount from '../hooks/GetAccount';
@@ -14,14 +15,10 @@ const MintDAO = () => {
     const[daoname,setDaoname]=React.useState('');   
     const[items,setItems]=useState('');
     const [imageUrl, setImageUrl] = useState('')
-    const SBT = GetContract('0x83843047A53edEc47A42e3BaC427FA01390C2c2f', SBTabi);
-    const LoanVault = GetContract(process.env.REACT_APP_VAULT_ADDRESS,LoanVaultABI);
+    const SBT = GetContract(MyNFTDetails.address, SBTabi);
+    const LoanVault = GetContract(LoanVaultDetails.address,LoanVaultDetails.abi);
     var account = GetAccount();
     const[txhash,setTxhash]=useState('');
-
-    const { data, isError, isLoading } = useWaitForTransaction({
-        hash: '0x5c504ed432cb51138bcf09aa5e8a410dd4a1e204ef84bfed1be16dfba1b22060',
-      })
 
     const mintsbt = async(id)=>{
         console.log(id)

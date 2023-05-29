@@ -2,12 +2,12 @@ import React, { useEffect } from 'react';
 import GetAccount from '../hooks/GetAccount';
   import GetContract from '../hooks/GetContract';
   import { useState } from 'react';
-  import LoanVaultABI from '../ABIs/LoanVaultABI.json';
+import LoanVaultDetails from '../ABIs/LoanVaultABI.js';
 
 const OutgoingTransfers = () => {
 
     const account = GetAccount();
-    const LoanVault = GetContract(process.env.REACT_APP_VAULT_ADDRESS,LoanVaultABI);
+    const LoanVault = GetContract(LoanVaultDetails.address,LoanVaultDetails.abi);
     const[streams,setStreams]=useState([]);
     const[streamCount1,setStreamCount1]=useState('');
     const[prevAccount,setPrevAccount]=useState('');

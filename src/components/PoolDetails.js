@@ -2,12 +2,12 @@ import React, { useEffect,useState } from 'react';
 import AddLiquidity from './AddLiquidity';
 import RemoveLiquidity from './RemoveLiquidity';
 import GetContract from '../hooks/GetContract';
-import LoanVaultABI from '../ABIs/LoanVaultABI.json';
+import LoanVaultDetails from '../ABIs/LoanVaultABI.js';
 import { ethers } from 'ethers';
 
 const PoolDetails = () => {
 
-    const LoanVault = GetContract(process.env.REACT_APP_VAULT_ADDRESS,LoanVaultABI);
+    const LoanVault = GetContract(LoanVaultDetails.address,LoanVaultDetails.abi);
     const[poolbal,setPoolbal]=useState('');
     const[shares,setShares]=useState('');
     const[lprate,setLprate]=useState('');

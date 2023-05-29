@@ -12,7 +12,7 @@ import {
   } from '@chakra-ui/react'
   import GetAccount from '../hooks/GetAccount';
   import GetContract from '../hooks/GetContract';
-  import LoanVaultABI from '../ABIs/LoanVaultABI.json';
+import LoanVaultDetails from '../ABIs/LoanVaultABI.js';
 import { Contract, ethers } from 'ethers';
   
 
@@ -25,7 +25,7 @@ const Streams = () => {
     const[rate,setRate]=React.useState(0);
     const[streams,setStreams]=React.useState([]);
     const account = GetAccount();
-    const LoanVault = GetContract(process.env.REACT_APP_VAULT_ADDRESS,LoanVaultABI);
+    const LoanVault = GetContract(LoanVaultDetails.address,LoanVaultDetails.abi);
 
     var time = (((new Date()).getTime()).toString().slice(0, -3));
 
