@@ -1,9 +1,9 @@
 import { getDefaultWallets, RainbowKitProvider } from "@rainbow-me/rainbowkit";
 import { configureChains, createClient, WagmiConfig } from "wagmi";
-import { polygonMumbai } from "wagmi/chains";
+import { gnosis } from "wagmi/chains";
 import { alchemyProvider } from "wagmi/providers/alchemy";
 import { publicProvider } from "wagmi/providers/public";
-import { BananaWallet } from "@rize-labs/banana-rainbowkit-plugin";
+// import { BananaWallet } from "@rize-labs/banana-rainbowkit-plugin";
 import { connectorsForWallets } from "@rainbow-me/rainbowkit";
 import {
   injectedWallet,
@@ -13,7 +13,7 @@ import {
 } from "@rainbow-me/rainbowkit/wallets";
 
 const { chains, provider } = configureChains(
-  [polygonMumbai],
+  [gnosis],
   [
     alchemyProvider({ apiKey: process.env.REACT_APP_ALCHEMY_ID }),
     publicProvider(),
@@ -24,7 +24,7 @@ const connectors = connectorsForWallets([
   {
     groupName: "Recommended",
     wallets: [
-        BananaWallet({ chains, connect: { networkId: 80001 } }),
+        // BananaWallet({ chains, connect: { networkId: 80001 } }),
         metaMaskWallet({ chains, shimDisconnect: true }),
         rainbowWallet({ chains }),
         walletConnectWallet({ chains }),
@@ -39,4 +39,4 @@ const wagmiConfig = createClient({
   provider,
 });
 
-export { wagmiConfig, RainbowKitProvider, WagmiConfig, chains, polygonMumbai };
+export { wagmiConfig, RainbowKitProvider, WagmiConfig, chains, gnosis };

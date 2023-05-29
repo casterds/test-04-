@@ -1,5 +1,4 @@
 import React from 'react';
-import Framework from '@superfluid-finance/sdk-core';
 import Footer from './components/Footer';
 
 const Homepage = () => {

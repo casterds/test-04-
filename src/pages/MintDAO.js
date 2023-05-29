@@ -16,19 +16,24 @@ const MintDAO = () => {
     const[items,setItems]=useState('');
     const [imageUrl, setImageUrl] = useState('')
     const SBT = GetContract(MyNFTDetails.address, SBTabi);
+    console.log(SBT, MyNFTDetails.address, SBTabi);
     const LoanVault = GetContract(LoanVaultDetails.address,LoanVaultDetails.abi);
+    console.log(LoanVault);
     var account = GetAccount();
     const[txhash,setTxhash]=useState('');
 
-    const mintsbt = async(id)=>{
+    const mintsbt = async(id, daoname)=>{
         console.log(id)
-        var tx = await SBT.mint(id).then(setTxhash(tx.hash));
-        setName();
+        var tx = await SBT.mint(id);
+        await tx.wait();
+        setTxhash(tx.hash);
+        await setName(daoname);
     }
 
-    const setName = async()=>{
-        const name = await LoanVault.registerDAO(daoname,ethers.utils.getAddress(account));
-        setDaoname(name);
+    const setName = async (daoname)=>{
+        const tx = await LoanVault.registerDAO(daoname);
+        await tx.wait();
+        setDaoname(daoname);
     }
 
     const getData = async () => {
@@ -49,7 +54,7 @@ const MintDAO = () => {
                 <input  className='w-full h-fit mt-6 bg-transparent border-2 border-opacity-10 rounded-xl p-3  ' placeholder='Company Name' onChange={(e)=>setDaoname(e.target.value)} />
                 <input  className='w-full h-fit mt-6 bg-transparent border-2 border-opacity-10 rounded-xl p-3  ' placeholder='Stream Admin' value={account} />
                 <input className='w-full h-fit mt-6 bg-transparent border-2 border-opacity-10 rounded-xl p-3  ' placeholder='Add Token ID' onChange={(e)=>setId(e.target.value)} />
-                <button className='w-full h-fit mt-6 bg-white text-slate-900 rounded-xl p-3' onClick={()=>mintsbt(id)} >Mint SBT</button>
+                <button className='w-full h-fit mt-6 bg-white text-slate-900 rounded-xl p-3' onClick={()=>mintsbt(id, daoname)} >Mint SBT</button>
                 <div className='mt-10' >
                 </div>
             </div>

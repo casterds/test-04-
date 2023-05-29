@@ -10,7 +10,7 @@ import {
   RainbowKitProvider,
   WagmiConfig,
   chains,
-  polygonMumbai,
+  gnosis,
 } from "./configureRainbowkit";
 import { darkTheme } from "@rainbow-me/rainbowkit";
 import { ChakraProvider } from "@chakra-ui/react";
@@ -21,7 +21,7 @@ root.render(
     <WagmiConfig client={wagmiConfig}>
       <RainbowKitProvider
         chains={chains}
-        initialChain={polygonMumbai}
+        initialChain={gnosis}
         theme={darkTheme()}
       >
         <ChakraProvider>
