@@ -1,5 +1,5 @@
 import React from 'react';
-import LoanVaultABI from '../ABIs/LoanVaultABI.json';
+import LoanVaultDetails from '../ABIs/LoanVaultABI.js';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import { ethers } from 'ethers';
@@ -12,7 +12,7 @@ const RemoveLiquidity = () => {
     const[withdrawamt,setWithdrawamt]=useState('');
     const[share,setShare]=useState('');
 
-    const LoanVault = GetContract(process.env.REACT_APP_VAULT_ADDRESS, LoanVaultABI);
+    const LoanVault = GetContract(LoanVaultDetails.address, LoanVaultDetails.abi);
 
     const removeLiquidity = async()=>{
         var shares = await LoanVault.getShare('0');

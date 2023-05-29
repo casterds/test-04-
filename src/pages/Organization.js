@@ -1,5 +1,4 @@
 import React from 'react';
-import { Framework } from '@superfluid-finance/sdk-core';
 import UseProvider from '../hooks/GetProvider';
 import GetSigner from '../hooks/GetSigner';
 import GetAccount from '../hooks/GetAccount';

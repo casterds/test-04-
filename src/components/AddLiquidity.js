@@ -1,16 +1,17 @@
 import React from 'react';
-import LoanVaultABI from '../ABIs/LoanVaultABI.json';
+import LoanVaultDetails from '../ABIs/LoanVaultABI.js';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import { ethers } from 'ethers';
 import GetContract from '../hooks/GetContract';
 import GetAccount from '../hooks/GetAccount';
 import { daiABI } from './DAIABI.js';
+import {DAIaddr} from '../common.js';
 
 const AddLiquidity = () => {
 
-    const LoanVault = GetContract(process.env.REACT_APP_VAULT_ADDRESS, LoanVaultABI);
-    const DAI = GetContract('0xE562db698CcE116169813d531e8C03A23276315c',daiABI);
+    const LoanVault = GetContract(LoanVaultDetails.address, LoanVaultDetails.abi);
+    const DAI = GetContract(DAIaddr,daiABI);
     const[amount,setAmount]=useState('');
     const[share,setShare]=useState('');
     const account = GetAccount();
@@ -33,7 +34,7 @@ const AddLiquidity = () => {
     }
 
     const DAIApprove=async()=>{
-        await DAI.approve(process.env.REACT_APP_VAULT_ADDRESS,ethers.utils.parseEther(amount));
+        await DAI.approve(LoanVaultDetails.address,ethers.utils.parseEther(amount));
     }
 
     return ( 
