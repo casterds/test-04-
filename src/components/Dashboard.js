@@ -17,7 +17,7 @@ const Dashboard = () => {
     const[admin,setAdmin]=useState('');
     const account = GetAccount();
     const DAI = GetContract('0xE562db698CcE116169813d531e8C03A23276315c',daiABI);
-    const LoanVault = GetContract('0x0b7Bc2Edb26059315d185cE9d23bf72d2ee13EA9',LoanVaultABI);
+    const LoanVault = GetContract(process.env.REACT_APP_VAULT_ADDRESS,LoanVaultABI);
 
 
     const checkBalance = async () => {

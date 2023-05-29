@@ -15,7 +15,7 @@ const MintDAO = () => {
     const[items,setItems]=useState('');
     const [imageUrl, setImageUrl] = useState('')
     const SBT = GetContract('0x83843047A53edEc47A42e3BaC427FA01390C2c2f', SBTabi);
-    const LoanVault = GetContract('0x0b7Bc2Edb26059315d185cE9d23bf72d2ee13EA9',LoanVaultABI);
+    const LoanVault = GetContract(process.env.REACT_APP_VAULT_ADDRESS,LoanVaultABI);
     var account = GetAccount();
     const[txhash,setTxhash]=useState('');
 
