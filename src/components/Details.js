@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import GetAccount from '../hooks/GetAccount';
-import LoanVaultABI from '../ABIs/LoanVaultABI.json';
+import LoanVaultDetails from '../ABIs/LoanVaultABI.js';
 import GetContract from '../hooks/GetContract';
 import { useState } from 'react';
 
@@ -8,7 +8,7 @@ import { useState } from 'react';
 const Details = () => {
     
     const[daoname,setDaoname]=useState('');
-    const LoanVault = GetContract('0x0b7Bc2Edb26059315d185cE9d23bf72d2ee13EA9',LoanVaultABI);
+    const LoanVault = GetContract(LoanVaultDetails.address,LoanVaultDetails.abi);
     const account = GetAccount();
 
     const setName = async()=>{

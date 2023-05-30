@@ -1,8 +1,9 @@
 import React from 'react';
-import { SBTabi } from './SBTABI';
+import { SBTabi } from '../ABIs/SBTABI';
 import GetContract from '../hooks/GetContract';
 import { ethers } from 'ethers';
-import LoanVaultABI from '../ABIs/LoanVaultABI.json'
+import LoanVaultDetails from '../ABIs/LoanVaultABI.js'
+import MyNFTDetails from '../ABIs/MyNFT.js';
 import { useState } from 'react';
 import { ImageUpload } from 'react-ipfs-uploader'
 import GetAccount from '../hooks/GetAccount';
@@ -14,24 +15,25 @@ const MintDAO = () => {
     const[daoname,setDaoname]=React.useState('');   
     const[items,setItems]=useState('');
     const [imageUrl, setImageUrl] = useState('')
-    const SBT = GetContract('0x83843047A53edEc47A42e3BaC427FA01390C2c2f', SBTabi);
-    const LoanVault = GetContract('0x0b7Bc2Edb26059315d185cE9d23bf72d2ee13EA9',LoanVaultABI);
+    const SBT = GetContract(MyNFTDetails.address, SBTabi);
+    console.log(SBT, MyNFTDetails.address, SBTabi);
+    const LoanVault = GetContract(LoanVaultDetails.address,LoanVaultDetails.abi);
+    console.log(LoanVault);
     var account = GetAccount();
     const[txhash,setTxhash]=useState('');
 
-    const { data, isError, isLoading } = useWaitForTransaction({
-        hash: '0x5c504ed432cb51138bcf09aa5e8a410dd4a1e204ef84bfed1be16dfba1b22060',
-      })
-
-    const mintsbt = async(id)=>{
+    const mintsbt = async(id, daoname)=>{
         console.log(id)
-        var tx = await SBT.mint(id).then(setTxhash(tx.hash));
-        setName();
+        var tx = await SBT.mint(id);
+        await tx.wait();
+        setTxhash(tx.hash);
+        await setName(daoname);
     }
 
-    const setName = async()=>{
-        const name = await LoanVault.registerDAO(daoname,ethers.utils.getAddress(account));
-        setDaoname(name);
+    const setName = async (daoname)=>{
+        const tx = await LoanVault.registerDAO(daoname);
+        await tx.wait();
+        setDaoname(daoname);
     }
 
     const getData = async () => {
@@ -52,7 +54,7 @@ const MintDAO = () => {
                 <input  className='w-full h-fit mt-6 bg-transparent border-2 border-opacity-10 rounded-xl p-3  ' placeholder='Company Name' onChange={(e)=>setDaoname(e.target.value)} />
                 <input  className='w-full h-fit mt-6 bg-transparent border-2 border-opacity-10 rounded-xl p-3  ' placeholder='Stream Admin' value={account} />
                 <input className='w-full h-fit mt-6 bg-transparent border-2 border-opacity-10 rounded-xl p-3  ' placeholder='Add Token ID' onChange={(e)=>setId(e.target.value)} />
-                <button className='w-full h-fit mt-6 bg-white text-slate-900 rounded-xl p-3' onClick={()=>mintsbt(id)} >Mint SBT</button>
+                <button className='w-full h-fit mt-6 bg-white text-slate-900 rounded-xl p-3' onClick={()=>mintsbt(id, daoname)} >Mint SBT</button>
                 <div className='mt-10' >
                 </div>
             </div>

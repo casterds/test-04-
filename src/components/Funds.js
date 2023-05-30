@@ -15,8 +15,9 @@ import {tokens} from '../tokens.js'
 import GetContract from '../hooks/GetContract.js';
 import { daiABI } from './DAIABI.js';
 import GetAccount from '../hooks/GetAccount.js';
-import LoanVaultABI from '../ABIs/LoanVaultABI.json';
+import LoanVaultDetails from '../ABIs/LoanVaultABI.js';
 import { ethers } from 'ethers';
+import { DAIaddr } from '../common.js';
 
 const Funds = () => {
 
@@ -26,11 +27,11 @@ const Funds = () => {
 
     const[token,setToken]=useState('Choose Token');
     const[amount,setAmount]=useState('');
-    const DAI = GetContract('0xE562db698CcE116169813d531e8C03A23276315c',daiABI);
-    const LoanVault = GetContract('0x0b7Bc2Edb26059315d185cE9d23bf72d2ee13EA9',LoanVaultABI);
+    const DAI = GetContract(DAIaddr,daiABI);
+    const LoanVault = GetContract(LoanVaultDetails.address,LoanVaultDetails.abi);
 
     const approve = async () => {
-        await DAI.approve('0x0b7Bc2Edb26059315d185cE9d23bf72d2ee13EA9',ethers.utils.parseEther(amount));
+        await DAI.approve(LoanVaultDetails.abi,ethers.utils.parseEther(amount));
     }
 
     const addfunds = async () => {

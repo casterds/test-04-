@@ -1,7 +1,6 @@
 import React from 'react';
 import GetAccount from '../hooks/GetAccount';
 import GetContract from '../hooks/GetContract';
-import LoanVaultABI from '../ABIs/LoanVaultABI.json';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import { ethers } from 'ethers';
@@ -16,10 +15,11 @@ import {
     MenuDivider,
     Button,
   } from '@chakra-ui/react'
+import LoanVaultDetails from '../ABIs/LoanVaultABI.js';
 
 const Borrow = () => {
 
-    const LoanVault = GetContract('0x0b7Bc2Edb26059315d185cE9d23bf72d2ee13EA9',LoanVaultABI);
+    const LoanVault = GetContract(LoanVaultDetails.address,LoanVaultDetails.abi);
     const[streamid,setStreamid]=useState([]);
     const[streamCount,setStreamCount]=useState('');
     const[prevAccount,setPrevAccount]=useState('');

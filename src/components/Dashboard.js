@@ -6,7 +6,8 @@ import Details from './Details';
 import GetAccount from '../hooks/GetAccount';
 import GetContract from '../hooks/GetContract';
 import { daiABI } from './DAIABI';
-import LoanVaultABI from '../ABIs/LoanVaultABI.json';
+import LoanVaultDetails from '../ABIs/LoanVaultABI.js';
+import { DAIaddr } from '../common';
 
 const Dashboard = () => {
 
@@ -16,8 +17,8 @@ const Dashboard = () => {
     const[streamCount,setStreamCount]=useState('');
     const[admin,setAdmin]=useState('');
     const account = GetAccount();
-    const DAI = GetContract('0xE562db698CcE116169813d531e8C03A23276315c',daiABI);
-    const LoanVault = GetContract('0x0b7Bc2Edb26059315d185cE9d23bf72d2ee13EA9',LoanVaultABI);
+    const DAI = GetContract(DAIaddr,daiABI);
+    const LoanVault = GetContract(LoanVaultDetails.address,LoanVaultDetails.abi);
 
 
     const checkBalance = async () => {
