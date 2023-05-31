@@ -1,6 +1,6 @@
 # Requirement: 
 - deployment on Gnosis testnet https://docs.gnosischain.com/about/networks/chiado/
-- hosting through vercel or netlify
+
 
 # Deployed contract's gnosisscan URL: 
 Lock: https://gnosisscan.io/address/0x78A63a31Fd7207Ed81a7c7572553F19778875Aef
